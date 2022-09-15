@@ -1,30 +1,30 @@
-close all;                        % ÇåÀí¹¤×÷¿Õ¼ä
+close all;                        % æ¸…ç†å·¥ä½œç©ºé—´
 clear;  
 tic
 [I_noise,map] = imread('lena1.bmp');
 I_noise=rgb2gray(I_noise);
-[LoD,HiD] = wfilters('bior3.7','d');%Ğ¡²¨ÂË²¨Æ÷
+[LoD,HiD] = wfilters('bior3.7','d');%å°æ³¢æ»¤æ³¢å™¨
 [cA,cH,cV,cD] = dwt2(I_noise,LoD,HiD,'mode','symh');
 figure, imshow(I_noise);
 m=350;
-n=400;%ÈÃdwtºóµÄ½üËÆ¾ØÕóÏ¡Êè
+n=400;%è®©dwtåçš„è¿‘ä¼¼çŸ©é˜µç¨€ç–
 k=135;
 cA=round(cA./10);
 ox=zeros(k,n);
 out=zeros(k,n);
 final_out=zeros(k,k);
 index_all=zeros(k,k);
-A=normrnd(0,1,m,n);%²úÉú(0,1)ÕıÌ«·Ö²¼µÄÏµÊı¾ØÕóA
+A=normrnd(0,1,m,n);%äº§ç”Ÿ(0,1)æ­£å¤ªåˆ†å¸ƒçš„ç³»æ•°çŸ©é˜µA
 mse = zeros(1,k);
 for i=1:k
-index=randperm(n,k);%·µ»ØÒ»ĞĞ´Ó1µ½nµÄÕûÊıÖĞµÄk¸ö£¬¶øÇÒÕâk¸öÊıÒ²ÊÇ²»ÏàÍ¬µÄ
+index=randperm(n,k);%è¿”å›ä¸€è¡Œä»1åˆ°nçš„æ•´æ•°ä¸­çš„kä¸ªï¼Œè€Œä¸”è¿™kä¸ªæ•°ä¹Ÿæ˜¯ä¸ç›¸åŒçš„
 index_all(i,:)=index;
 for count=1:k
   ox(i,index(count))=cA(i,count);
 end
     b=A*ox(i,:)';
     tend=0.01;
-    x=rand(n,1);%Éú³Én*1µÄËæ»ú¾ØÕó
+    x=rand(n,1);%ç”Ÿæˆn*1çš„éšæœºçŸ©é˜µ
     f0=x;
     P=A'*inv(A*A')*A;
     [mp,np]=size(P);
@@ -43,7 +43,7 @@ MSE = sum(mse);
 PSNR = 10*log10(255^2/MSE);
 error = norm(final_out-cA,2)/norm(cA,2);
 figure(3)
-Y=idwt2(round(final_out)*10,cH,cV,cD,'bior3.7');%µ¥³ß¶È¶şÎ¬ÀëÉ¢Ğ¡²¨ÖØ¹¹(Äæ±ä»»)
+Y=idwt2(round(final_out)*10,cH,cV,cD,'bior3.7');%å•å°ºåº¦äºŒç»´ç¦»æ•£å°æ³¢é‡æ„(é€†å˜æ¢)
 imshow(Y,map)
 function [df,count]=rnn(A,P,Q,I,m,n,f0)
 iteration=60001;
