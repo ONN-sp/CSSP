@@ -6,23 +6,23 @@ mse = zeros(1,4);
 for kk = 1:4
     m = mm(kk);
     out=zeros(1,n);
-    A=normrnd(0,1,m,n);%²úÉú(0,1)ÕıÌ«·Ö²¼µÄÏµÊı¾ØÕóA
-    k_v=-2*unidrnd(5,k,1)+unidrnd(5,k,1);%unidrndÉú³É(Á¬Ğø)¾ùÔÈ·Ö²¼µÄËæ»úÕûÊı,·µ»ØµÄÊÇk*1¾ØÕó¡£ÕâÀï²úÉúµÄÆäÊµÊÇ·ÇÁãÔª
+    A=normrnd(0,1,m,n);%äº§ç”Ÿ(0,1)æ­£å¤ªåˆ†å¸ƒçš„ç³»æ•°çŸ©é˜µA
+    k_v=-2*unidrnd(5,k,1)+unidrnd(5,k,1);%unidrndç”Ÿæˆ(è¿ç»­)å‡åŒ€åˆ†å¸ƒçš„éšæœºæ•´æ•°,è¿”å›çš„æ˜¯k*1çŸ©é˜µã€‚è¿™é‡Œäº§ç”Ÿçš„å…¶å®æ˜¯éé›¶å…ƒ
     k_v(k_v==0)=1;
     ox=zeros(n,1);
-    index=randperm(n,k);%·µ»ØÒ»ĞĞ´Ó1µ½nµÄÕûÊıÖĞµÄk¸ö£¬¶øÇÒÕâk¸öÊıÒ²ÊÇ²»ÏàÍ¬µÄ
+    index=randperm(n,k);%è¿”å›ä¸€è¡Œä»1åˆ°nçš„æ•´æ•°ä¸­çš„kä¸ªï¼Œè€Œä¸”è¿™kä¸ªæ•°ä¹Ÿæ˜¯ä¸ç›¸åŒçš„
     for count=1:k
         ox(index(count))=k_v(count);
     end
     b=A*ox; 
     tend=0.01;
-    x=rand(n,1);%Éú³Én*1µÄËæ»ú¾ØÕó
+    x=rand(n,1);%ç”Ÿæˆn*1çš„éšæœºçŸ©é˜µ
     f0=x;
     P=A'*inv(A*A')*A;
     [mp,np]=size(P);
     I=eye(mp);
     Q=A'*inv(A*A')*b;
-%     ox = awgn(ox,10);%¼ÓĞÅÔë±È=10µÄ¸ßË¹ÔëÉù
+%     ox = awgn(ox,10);%åŠ ä¿¡å™ªæ¯”=10çš„é«˜æ–¯å™ªå£°
     [f_result,iteration,error]=rnn(ox,A,P,Q,I,m,n,f0);
     out=f_result(1:n,iteration-1);
     mse(kk) = sum((out-ox).^2)./(n^2);
@@ -43,7 +43,7 @@ for i=1:iteration
     % dx=200.0*x(:,i).*exp(-100.0*x(:,i).^2);%gau delta=0.1
     % dx = -(2.0.*(200.0.*x(:,i).*exp(-100.0*x(:,i).^2) - 200.0.*x(:,i).*exp(100.0*x(:,i).^2)))./(exp(-100.0.*x(:,i).^2) + exp(100.0*x(:,i).^2)).^2;%hyper delta=0.1
     x(:,i+1)=x(:,i)+step*(-P*x(:,i)-(I-P)*dx+Q);
-    error(i)=sqrt(sum(abs(x(:,i+1)-Original_value).^2)/sum(abs(x(:,i+1)).^2));%Ã¿Ò»´Îµü´ú»Ö¸´µÄÏòÁ¿ÓëÔ­ÏòÁ¿µÄÎó²îÖµ
+    error(i)=sqrt(sum(abs(x(:,i+1)-Original_value).^2)/sum(abs(x(:,i+1)).^2));%æ¯ä¸€æ¬¡è¿­ä»£æ¢å¤çš„å‘é‡ä¸åŸå‘é‡çš„è¯¯å·®å€¼
     xxx(:,count)=x(:,i+1);
     count=count+1;
 if error(i)<10^-7
