@@ -6,7 +6,7 @@ I_noise=rgb2gray(I_noise);
 [LoD,HiD] = wfilters('bior3.7','d');%小波滤波器
 [cA,cH,cV,cD] = dwt2(I_noise,LoD,HiD,'mode','symh');
 figure, imshow(I_noise);
-m=350;
+m=335;
 n=400;%让dwt后的近似矩阵稀疏
 k=135;
 cA=round(cA./10);
