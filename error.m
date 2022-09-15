@@ -4,18 +4,18 @@ n=80;
 k=20;
 
 out=zeros(1,n);
-A=normrnd(0,1,m,n);%²úÉú(0,1)ÕıÌ«·Ö²¼µÄÏµÊı¾ØÕóA
+A=normrnd(0,1,m,n);%äº§ç”Ÿ(0,1)æ­£å¤ªåˆ†å¸ƒçš„ç³»æ•°çŸ©é˜µA
 for i=1:n
-    k_v=-2*unidrnd(5,k,1)+unidrnd(5,k,1);%unidrndÉú³É(Á¬Ğø)¾ùÔÈ·Ö²¼µÄËæ»úÕûÊı,·µ»ØµÄÊÇk*1¾ØÕó¡£ÕâÀï²úÉúµÄÆäÊµÊÇ·ÇÁãÔª
+    k_v=-2*unidrnd(5,k,1)+unidrnd(5,k,1);%unidrndç”Ÿæˆ(è¿ç»­)å‡åŒ€åˆ†å¸ƒçš„éšæœºæ•´æ•°,è¿”å›çš„æ˜¯k*1çŸ©é˜µã€‚è¿™é‡Œäº§ç”Ÿçš„å…¶å®æ˜¯éé›¶å…ƒ
     k_v(k_v==0)=1;
     ox=zeros(n,1);
-    index=randperm(n,k);%·µ»ØÒ»ĞĞ´Ó1µ½nµÄÕûÊıÖĞµÄk¸ö£¬¶øÇÒÕâk¸öÊıÒ²ÊÇ²»ÏàÍ¬µÄ
+    index=randperm(n,k);%è¿”å›ä¸€è¡Œä»1åˆ°nçš„æ•´æ•°ä¸­çš„kä¸ªï¼Œè€Œä¸”è¿™kä¸ªæ•°ä¹Ÿæ˜¯ä¸ç›¸åŒçš„
     for count=1:k
         ox(index(count))=k_v(count);
     end
     b=A*ox; 
     tend=0.01;
-    x=rand(n,1);%Éú³Én*1µÄËæ»ú¾ØÕó
+    x=rand(n,1);%ç”Ÿæˆn*1çš„éšæœºçŸ©é˜µ
     f0=x;
     P=A'*inv(A*A')*A;
     [mp,np]=size(P);
@@ -41,7 +41,7 @@ error=zeros(1,iteration);
 for i=1:iteration
     dx=(12.73*x(:,i))./(100*x(:,i).^4 + 1.0);%arc delta=0.1
     x(:,i+1)=x(:,i)+step*(-P*x(:,i)-(I-P)*dx+Q);
-    error(i)=sqrt(sum(abs(x(:,i+1)-Original_value).^2)/sum(abs(x(:,i+1)).^2));%Ã¿Ò»´Îµü´ú»Ö¸´µÄÏòÁ¿ÓëÔ­ÏòÁ¿µÄÎó²îÖµ
+    error(i)=sqrt(sum(abs(x(:,i+1)-Original_value).^2)/sum(abs(x(:,i+1)).^2));%æ¯ä¸€æ¬¡è¿­ä»£æ¢å¤çš„å‘é‡ä¸åŸå‘é‡çš„è¯¯å·®å€¼
     xxx(:,count)=x(:,i+1);
     count=count+1;
     if error(i)<10^-7
