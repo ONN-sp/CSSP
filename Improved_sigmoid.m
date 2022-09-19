@@ -40,12 +40,12 @@ step=0.01;
 count=1;
 error=zeros(1,iteration);
 for i=1:iteration
-%     dx=(2.0*exp(abs(x(:,i))).*sign(x(:,i)))./(exp(abs(x(:,i))) + 1.0).^2;%sigmoid delta=0.1
-    dx = 10.*exp(-10.*abs(x(:,i))).*sign(x(:,i));%La delta=0.1
+     dx=(2.0*exp(abs(x(:,i))).*sign(x(:,i)))./(exp(abs(x(:,i))) + 1.0).^2;%sigmoid delta=0.1
+%     dx = 10.*exp(-10.*abs(x(:,i))).*sign(x(:,i));%La delta=0.1
 %     dx=(200*x(:,i))./(10000*x(:,i).^4 + 1).^(1/2) - (2000000*x(:,i).^5)./(10000*x(:,i).^4 + 1).^(3/2);%CT delta=0.1
 %     dx = (2*x(:,i).^3)./(x(:,i).^2 + 1/100).^2 - (2*x(:,i))./(x(:,i).^2 +1/100); %comp delta=0.1
 %     dx=200.0*x(:,i).*exp(-100.0*x(:,i).^2);%gau delta=0.1
-    % dx = -(2.0.*(200.0.*x(:,i).*exp(-100.0*x(:,i).^2) - 200.0.*x(:,i).*exp(100.0*x(:,i).^2)))./(exp(-100.0.*x(:,i).^2) + exp(100.0*x(:,i).^2)).^2;%hyper delta=0.1
+%     dx = -(2.0.*(200.0.*x(:,i).*exp(-100.0*x(:,i).^2) - 200.0.*x(:,i).*exp(100.0*x(:,i).^2)))./(exp(-100.0.*x(:,i).^2) + exp(100.0*x(:,i).^2)).^2;%hyper delta=0.1
     x(:,i+1)=x(:,i)+step*(-P*x(:,i)-(I-P)*dx+Q);
     error(i)=sqrt(sum(abs(x(:,i+1)-Original_value).^2)/sum(abs(x(:,i+1)).^2));%每一次迭代恢复的向量与原向量的误差值
     xxx(:,count)=x(:,i+1);
